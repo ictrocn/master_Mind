@@ -8,8 +8,13 @@ print("MasterMind")
 
 import random
 
-def generate_Code(length=4, digits=6):
-    return [str(random.randint(1, digits)) for _ in range(length)]
+
+# def generate_Code(length=4, digits=6):
+#     return [str(random.randint(1, digits)) for _ in range(length)]
+colors = ["rood", "blauw", "groen", "paars", "geel", "oranje"]    
+def generate_Code(length=4):
+    return [random.choice(colors) for _ in range(length)]
+
 
 def get_Feedback(secret, guess):
     black_Pegs = sum(s == g for s, g in zip(secret, guess))
@@ -32,28 +37,35 @@ def show_Secret(mystery):
 
 def play_Mastermind():
     print("Welcome to Mastermind!")
-    print("Guess the 4-digit code. Each digit is from 1 to 6. You have 10 attempts.")
+    print("Guess the 4-color code. Colors: rood, blauw, groen, paars, geel, oranje.")
     secret_Code = generate_Code()
     attempts = 10
 
     for attempt in range(1, attempts + 1):
-        guess = ""
+        guess = []
         valid_Guess = False
         while not valid_Guess:
-            guess = input(f"Attempt {attempt}: ").strip()
-            valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
+            guess_input = input(f"Attempt {attempt}: ").strip().lower().split()
+            if guess_input == ["admin"]:
+                print("welkom bij het adminscherm wil je code zien ja")
+                ja = input("ja of nee")
+                if ja == "ja":
+                    print(f"Secret code: {secret_Code}")
+                    continue
+            valid_Guess = len(guess_input) == 4 and all(color in colors for color in guess_input)
             if not valid_Guess:
-                print("Invalid input. Enter 4 digits, each from 1 to 6.")
-            show_Secret(secret_Code) if guess == "cheat" else False
+                print("Invalid input. Enter 4 valid colors separated by spaces.")
 
+        guess = guess_input
         black, white = get_Feedback(secret_Code, guess)
         print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
 
         if black == 4:
-            print(f"Congratulations! You guessed the code: {''.join(secret_Code)}")
+            print(f"Congratulations! You guessed the code: {' '.join(secret_Code)}")
             return
 
-    print(f"Sorry, you've used all attempts. The correct code was: {''.join(secret_Code)}")
+    print(f"Sorry, you've used all attempts. The correct code was: {' '.join(secret_Code)}")
+
 
 if __name__ == "__main__":
     again = 'Y'
