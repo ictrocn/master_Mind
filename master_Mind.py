@@ -1,4 +1,4 @@
-    #!/bin/python3
+#!/bin/python3
 # MasterMind
 # by ICTROCN
 # v1.01
@@ -36,17 +36,6 @@ def play_Mastermind():
     secret_Code = generate_Code()
     attempts = 10
 
-    admin_password = "admin123"
-    admin = False
-    password = input ("Fill in the admin password or press enter to play:")
-    if password == admin_password:
-        admin = True
-        print("admin mode activated use cheat to see the code.")
-    else:
-        print("normal mode activated, succces!")
-
-
-
     for attempt in range(1, attempts + 1):
         guess = ""
         valid_Guess = False
@@ -55,7 +44,7 @@ def play_Mastermind():
             valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
             if not valid_Guess:
                 print("Invalid input. Enter 4 digits, each from 1 to 6.")
-            show_Secret(secret_Code) if guess == "cheat" and admin == True else False
+            show_Secret(secret_Code) if guess == "cheat" else False
 
         black, white = get_Feedback(secret_Code, guess)
         print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
