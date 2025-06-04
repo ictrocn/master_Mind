@@ -7,6 +7,12 @@
 print("MasterMind")
 
 import random
+from credentials import credentials
+
+adminCreds = {
+    "Name": credentials.adminName,
+    "Pass": credentials.adminPass
+}
 
 def generate_Code(length=4, digits=6):
     return [str(random.randint(1, digits)) for _ in range(length)]
@@ -29,6 +35,19 @@ def get_Feedback(secret, guess):
 
 def show_Secret(mystery):
     print(mystery)
+    
+def authentication(secretCode):
+    name = input("enter admin name: ")
+    
+    if name == adminCreds["Name"]:
+        reply = input("Enter password: ")
+    else:
+        print(f"wrong name")
+    
+    if reply == adminCreds["Pass"]:
+        show_Secret(secretCode)
+    else:
+        print(f"wrong pass")
 
 def play_Mastermind():
     print("Welcome to Mastermind!")
@@ -44,7 +63,12 @@ def play_Mastermind():
             valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
             if not valid_Guess:
                 print("Invalid input. Enter 4 digits, each from 1 to 6.")
-            show_Secret(secret_Code) if guess == "cheat" else False
+             
+            if guess == "cheat":
+                authentication(secret_Code)
+            else:
+                False
+            
 
         black, white = get_Feedback(secret_Code, guess)
         print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
