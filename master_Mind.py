@@ -3,13 +3,24 @@
 # by ICTROCN
 # v1.01
 # 15-8-2024
+<<<<<<< Updated upstream
 # Last mod by DevJan : added loop for replay
 print("MasterMind")
 
 import random
 
+=======
+# Last mod by DevJan : added loop for replay & password-protected cheat
+
+import random
+
+print("MasterMind")
+
+
+>>>>>>> Stashed changes
 def generate_Code(length=4, digits=6):
     return [str(random.randint(1, digits)) for _ in range(length)]
+
 
 def get_Feedback(secret, guess):
     black_Pegs = sum(s == g for s, g in zip(secret, guess))
@@ -27,8 +38,15 @@ def get_Feedback(secret, guess):
     
     return black_Pegs, white_Pegs
 
+<<<<<<< Updated upstream
 def show_Secret(mystery):
     print(mystery)
+=======
+
+def show_Secret(secret_Code):
+    print(f"[Cheat Mode] De geheime code is: {''.join(secret_Code)}")
+>>>>>>> Stashed changes
+
 
 def play_Mastermind():
     print("Welcome to Mastermind!")
