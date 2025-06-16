@@ -40,7 +40,7 @@ def play_Mastermind():
         guess = ""
         valid_Guess = False
         while not valid_Guess:
-            guess = input(f"Attempt {attempt}: ").strip()
+            guess = input (f"Attempt {attempt}: ").strip()
             valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
             if not valid_Guess:
                 print("Invalid input. Enter 4 digits, each from 1 to 6.")
