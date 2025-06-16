@@ -47,7 +47,7 @@ def play_Mastermind():
             show_Secret(secret_Code) if guess == "cheat" else False
 
         black, white = get_Feedback(secret_Code, guess)
-        print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
+        print (f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
 
         if black == 4:
             print(f"Congratulations! You guessed the code: {''.join(secret_Code)}")
