@@ -40,14 +40,14 @@ def play_Mastermind():
         guess = ""
         valid_Guess = False
         while not valid_Guess:
-            guess = input (f"Attempt {attempt}: ").strip()
+            guess = input(f"Attempt {attempt}: ").strip()
             valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
             if not valid_Guess:
                 print("Invalid input. Enter 4 digits, each from 1 to 6.")
             show_Secret(secret_Code) if guess == "cheat" else False
 
         black, white = get_Feedback(secret_Code, guess)
-        print (f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
+        print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
 
         if black == 4:
             print(f"Congratulations! You guessed the code: {''.join(secret_Code)}")
