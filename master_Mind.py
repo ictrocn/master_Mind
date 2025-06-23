@@ -21,13 +21,12 @@ def get_feedback(secret, guess):
     secret_copy = secret[:]
     guess_copy = list(guess)
 
-    # First pass: check for correct positions (black pegs)
     for i in range(4):
         if guess[i] == secret[i]:
             feedback[i] = 'B'
-            secret_copy[i] = None  # Mark as matched
+            secret_copy[i] = None
             guess_copy[i] = None
-    # Second pass: check for correct color, wrong position (white pegs)
+
     for i in range(4):
         if guess_copy[i] is not None:
             if guess_copy[i] in secret_copy:
@@ -47,7 +46,6 @@ def play_mastermind():
     print("Guess the 4-color code. Use letters: R, G, B, Y, O, C, P. You have 10 attempts.")
     secret_code = generate_code()
     attempts = 10
-    CHEAT_PASSWORD = "maker123"
 
     for attempt in range(1, attempts + 1):
         guess = ""
@@ -65,7 +63,7 @@ def play_mastermind():
         feedback = get_feedback(secret_code, guess)
         print("Feedback:", ''.join(feedback))
 
-        if black == 4:
+        if feedback == 4:
             print(f"Congratulations! You guessed the code: {''.join(secret_code)}")
             return
 
@@ -74,6 +72,6 @@ def play_mastermind():
 
 if __name__ == "__main__":
     again = 'Y'
-    while again == 'Y' :
+    while again == 'Y':
         play_mastermind()
         again  = input (f"Play again (Y/N) ?").upper()
