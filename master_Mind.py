@@ -14,7 +14,6 @@ def generate_Code(length=4):
     return [random.choice(COLORS) for _ in range(length)]
 
 
-
 def get_Feedback(secret, guess):
     black_Pegs = sum(s == g for s, g in zip(secret, guess))
 
