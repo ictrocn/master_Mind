@@ -1,10 +1,12 @@
-import random
 #!/bin/python3
 # MasterMind
 # by ICTROCN
 # v1.01
 # 15-8-2024
 # Last mod by DevJan : added loop for replay
+
+import random
+
 print("MasterMind")
 
 kleuren = ['rood', 'oranje', 'geel', 'groen', 'blauw', 'paars']
@@ -78,4 +80,4 @@ if __name__ == "__main__":
     again = 'Y'
     while again == 'Y':
         play_Mastermind()
-        again = input(f"Play again (Y/N) ?").upper()
+        again = input("Play again (Y/N) ?").upper()
