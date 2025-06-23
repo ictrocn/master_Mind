@@ -35,16 +35,35 @@ def play_Mastermind():
     print("Guess the 4-digit code. Each digit is from 1 to 6. You have 10 attempts.")
     secret_Code = generate_Code()
     attempts = 10
+    admin_code = "Admin123"
+    is_admin = False
 
     for attempt in range(1, attempts + 1):
         guess = ""
         valid_Guess = False
         while not valid_Guess:
             guess = input(f"Attempt {attempt}: ").strip()
+            if guess == "Admin" or guess == "admin":
+                if is_admin:
+                    print("You are already in admin mode.")
+                    continue
+                code_guess = input("What is the admin password? ")
+                if code_guess == admin_code:
+                    is_admin = True
+                    print("Admin mode activated.")
+                    continue
+                else:
+                    print("Incorrect admin code. Try again.")
+                    continue
+
+            if guess == "cheat" and is_admin or guess == "Cheat" and is_admin:
+                print("The secret code is:")
+                show_Secret(secret_Code)
+                continue
+                    
             valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
             if not valid_Guess:
                 print("Invalid input. Enter 4 digits, each from 1 to 6.")
-            show_Secret(secret_Code) if guess == "cheat" else False
 
         black, white = get_Feedback(secret_Code, guess)
         print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
