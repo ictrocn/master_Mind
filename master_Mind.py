@@ -1,5 +1,5 @@
 import random
-#!/bin/python3
+# !/bin/python3
 # MasterMind
 # by ICTROCN
 # v1.01
@@ -37,6 +37,7 @@ def get_feedback(secret, guess):
 
     return feedback
 
+
 def show_secret(secret_code):
     print(f"The code is: {''.join(secret_code)}")
 
@@ -59,7 +60,6 @@ def play_mastermind():
             if not valid_guess:
                 print("Invalid input. Enter 4 letters from R, G, B, Y, O, C, P.")
 
-
         feedback = get_feedback(secret_code, guess)
         print("Feedback:", ''.join(feedback))
 
@@ -74,4 +74,4 @@ if __name__ == "__main__":
     again = 'Y'
     while again == 'Y':
         play_mastermind()
-        again  = input (f"Play again (Y/N) ?").upper()
+        again = input("Play again (Y/N) ?").upper()
