@@ -27,7 +27,7 @@ def get_Feedback(secret, guess):
     
     return black_Pegs, white_Pegs
 
-def show_Secret(mystery):
+def show_Secret(mystery ):
     print(mystery)
 
 def play_Mastermind():
