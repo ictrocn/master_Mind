@@ -17,20 +17,26 @@ def generate_code(length=4, digits=6):
 
 
 def get_feedback(secret, guess):
-    black_pegs = sum(s == g for s, g in zip(secret, guess))
-    
-    # Count whites by subtracting black and calculating min digit frequency match
-    secret_counts = {}
-    guess_counts = {}
+    feedback = [''] * 4
+    secret_copy = secret[:]
+    guess_copy = list(guess)
 
-    for s, g in zip(secret, guess):
-        if s != g:
-            secret_counts[s] = secret_counts.get(s, 0) + 1
-            guess_counts[g] = guess_counts.get(g, 0) + 1
+    # First pass: check for correct positions (black pegs)
+    for i in range(4):
+        if guess[i] == secret[i]:
+            feedback[i] = 'B'
+            secret_copy[i] = None  # Mark as matched
+            guess_copy[i] = None
+    # Second pass: check for correct color, wrong position (white pegs)
+    for i in range(4):
+       if guess_copy[i] is not None:
+            if guess_copy[i] in secret_copy:
+                feedback[i] = 'W'
+                secret_copy[secret_copy.index(guess_copy[i])] = None
+            else:
+                feedback[i] = 'N'
 
-    white_pegs = sum(min(secret_counts.get(c, 0), guess_counts.get(c, 0)) for c in guess_counts)
-    
-    return black_pegs, white_pegs
+    return feedback
 
 
 def show_secret(secret_code):
@@ -55,8 +61,9 @@ def play_mastermind():
             if not valid_guess:
                 print("Invalid input. Enter 4 letters from R, G, B, Y, O, C, P.")
 
-        black, white = get_feedback(secret_code, guess)
-        print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
+
+        feedback = get_feedback(secret_code, guess)
+        print("Feedback:", ''.join(feedback))
 
         if black == 4:
             print(f"Congratulations! You guessed the code: {''.join(secret_code)}")
