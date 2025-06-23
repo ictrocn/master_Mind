@@ -1,3 +1,4 @@
+import random
 #!/bin/python3
 # MasterMind
 # by ICTROCN
@@ -6,13 +7,12 @@
 # Last mod by DevJan : added loop for replay & password-protected cheat
 print("MasterMind")
 
-import random
-
 print("MasterMind")
 
 COLORS = ['R', 'G', 'B', 'Y', 'O', 'C', 'P']
 
-def generate_code(length=4, digits=6):
+
+def generate_code(length=4):
     return [str(random.choice(COLORS)) for _ in range(length)]
 
 
@@ -29,7 +29,7 @@ def get_feedback(secret, guess):
             guess_copy[i] = None
     # Second pass: check for correct color, wrong position (white pegs)
     for i in range(4):
-       if guess_copy[i] is not None:
+        if guess_copy[i] is not None:
             if guess_copy[i] in secret_copy:
                 feedback[i] = 'W'
                 secret_copy[secret_copy.index(guess_copy[i])] = None
@@ -70,6 +70,7 @@ def play_mastermind():
             return
 
     print(f"Sorry, you've used all attempts. The correct code was: {''.join(secret_code)}")
+
 
 if __name__ == "__main__":
     again = 'Y'
