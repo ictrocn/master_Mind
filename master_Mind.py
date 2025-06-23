@@ -3,8 +3,8 @@
 # by ICTROCN
 # v1.01
 # 15-8-2024
-# Last mod by DevJan : added loop for replay
 # Last mod by DevJan : added loop for replay & password-protected cheat
+print("MasterMind")
 
 import random
 
@@ -38,7 +38,6 @@ def get_feedback(secret, guess):
 
     return feedback
 
-
 def show_secret(secret_code):
     print(f"The code is: {''.join(secret_code)}")
 
@@ -48,6 +47,7 @@ def play_mastermind():
     print("Guess the 4-color code. Use letters: R, G, B, Y, O, C, P. You have 10 attempts.")
     secret_code = generate_code()
     attempts = 10
+    CHEAT_PASSWORD = "maker123"
 
     for attempt in range(1, attempts + 1):
         guess = ""
