@@ -14,7 +14,7 @@ COLORS = ['R', 'G', 'B', 'Y', 'O', 'C', 'P']
 def generate_code(length=4):
     return [str(random.choice(COLORS)) for _ in range(length)]
 
-  
+
 def get_feedback(secret, guess):
     feedback = [''] * 4
     secret_copy = secret[:]
