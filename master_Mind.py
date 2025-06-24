@@ -65,7 +65,7 @@ def play_mastermind():
         feedback = get_feedback(secret_code, guess)
         print("Feedback:", ''.join(feedback))
 
-        if feedback == 4:
+        if feedback == ['B'] * 4:
             print(f"Congratulations! You guessed the code: {''.join(secret_code)}")
             return
 
