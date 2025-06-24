@@ -19,9 +19,6 @@ def get_feedback(secret, guess):
     feedback = [''] * 4
     secret_copy = secret[:]
     guess_copy = list(guess)
-    
-    
-
     for i in range(4):
         if guess[i] == secret[i]:
             feedback[i] = 'B'
@@ -41,7 +38,7 @@ def get_feedback(secret, guess):
 
 def show_Secret(secret_Code):
     print(f"[Cheat Mode] De geheime code is: {''.join(secret_Code)}")
-    
+
 
 def play_mastermind():
     print("Welcome to Mastermind!")
@@ -57,7 +54,7 @@ def play_mastermind():
             if guess.lower() == "cheat":
                 pw = input("Voer het wachtwoord in om de code te tonen: ").strip()
                 if pw == CHEAT_PASSWORD:
-                    show_Secret(secret_Code)
+                    show_Secret(secret_code)
                 else:
                     print("Onjuist wachtwoord. Toegang geweigerd.")
                 continue
