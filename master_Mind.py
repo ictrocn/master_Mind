@@ -5,7 +5,6 @@ import random
 # v1.01
 # 15-8-2024
 # Last mod by DevJan : added loop for replay & password-protected cheat
-print("MasterMind")
 
 print("MasterMind")
 
@@ -20,6 +19,8 @@ def get_feedback(secret, guess):
     feedback = [''] * 4
     secret_copy = secret[:]
     guess_copy = list(guess)
+    
+    
 
     for i in range(4):
         if guess[i] == secret[i]:
@@ -38,23 +39,27 @@ def get_feedback(secret, guess):
     return feedback
 
 
-def show_secret(secret_code):
-    print(f"The code is: {''.join(secret_code)}")
-
+def show_Secret(secret_Code):
+    print(f"[Cheat Mode] De geheime code is: {''.join(secret_Code)}")
+    
 
 def play_mastermind():
     print("Welcome to Mastermind!")
     print("Guess the 4-color code. Use letters: R, G, B, Y, O, C, P. You have 10 attempts.")
     secret_code = generate_code()
     attempts = 10
-
+    CHEAT_PASSWORD = "maker123"
     for attempt in range(1, attempts + 1):
         guess = ""
         valid_guess = False
         while not valid_guess:
             guess = input(f"Attempt {attempt}: ").upper()
-            if guess == "CHEAT":
-                show_secret(secret_code)
+            if guess.lower() == "cheat":
+                pw = input("Voer het wachtwoord in om de code te tonen: ").strip()
+                if pw == CHEAT_PASSWORD:
+                    show_Secret(secret_Code)
+                else:
+                    print("Onjuist wachtwoord. Toegang geweigerd.")
                 continue
             valid_guess = len(guess) == 4 and all(c in COLORS for c in guess)
             if not valid_guess:
