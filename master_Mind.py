@@ -1,63 +1,79 @@
-#!/bin/python3
+import random
+# !/bin/python3
 # MasterMind
 # by ICTROCN
 # v1.01
 # 15-8-2024
-# Last mod by DevJan : added loop for replay
+# Last mod by DevJan : added loop for replay & password-protected cheat
+
 print("MasterMind")
 
-import random
+COLORS = ['R', 'G', 'B', 'Y', 'O', 'C', 'P']
 
-def generate_Code(length=4, digits=6):
-    return [str(random.randint(1, digits)) for _ in range(length)]
 
-def get_Feedback(secret, guess):
-    black_Pegs = sum(s == g for s, g in zip(secret, guess))
-    
-    # Count whites by subtracting black and calculating min digit frequency match
-    secret_Counts = {}
-    guess_Counts = {}
+def generate_code(length=4):
+    return [str(random.choice(COLORS)) for _ in range(length)]
 
-    for s, g in zip(secret, guess):
-        if s != g:
-            secret_Counts[s] = secret_Counts.get(s, 0) + 1
-            guess_Counts[g] = guess_Counts.get(g, 0) + 1
 
-    white_Pegs = sum(min(secret_Counts.get(d, 0), guess_Counts.get(d, 0)) for d in guess_Counts)
-    
-    return black_Pegs, white_Pegs
+def get_feedback(secret, guess):
+    feedback = [''] * 4
+    secret_copy = secret[:]
+    guess_copy = list(guess)
+    for i in range(4):
+        if guess[i] == secret[i]:
+            feedback[i] = 'B'
+            secret_copy[i] = None
+            guess_copy[i] = None
 
-def show_Secret(mystery):
-    print(mystery)
+    for i in range(4):
+        if guess_copy[i] is not None:
+            if guess_copy[i] in secret_copy:
+                feedback[i] = 'W'
+                secret_copy[secret_copy.index(guess_copy[i])] = None
+            else:
+                feedback[i] = 'N'
 
-def play_Mastermind():
+    return feedback
+
+
+def show_Secret(secret_Code):
+    print(f"[Cheat Mode] De geheime code is: {''.join(secret_Code)}")
+
+
+def play_mastermind():
     print("Welcome to Mastermind!")
-    print("Guess the 4-digit code. Each digit is from 1 to 6. You have 10 attempts.")
-    secret_Code = generate_Code()
+    print("Guess the 4-color code. Use letters: R, G, B, Y, O, C, P. You have 10 attempts.")
+    secret_code = generate_code()
     attempts = 10
-
+    CHEAT_PASSWORD = "maker123"
     for attempt in range(1, attempts + 1):
         guess = ""
-        valid_Guess = False
-        while not valid_Guess:
-            guess = input(f"Attempt {attempt}: ").strip()
-            valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
-            if not valid_Guess:
-                print("Invalid input. Enter 4 digits, each from 1 to 6.")
-            show_Secret(secret_Code) if guess == "cheat" else False
+        valid_guess = False
+        while not valid_guess:
+            guess = input(f"Attempt {attempt}: ").upper()
+            if guess.lower() == "cheat":
+                pw = input("Voer het wachtwoord in om de code te tonen: ").strip()
+                if pw == CHEAT_PASSWORD:
+                    show_Secret(secret_code)
+                else:
+                    print("Onjuist wachtwoord. Toegang geweigerd.")
+                continue
+            valid_guess = len(guess) == 4 and all(c in COLORS for c in guess)
+            if not valid_guess:
+                print("Invalid input. Enter 4 letters from R, G, B, Y, O, C, P.")
 
-        black, white = get_Feedback(secret_Code, guess)
-        print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
+        feedback = get_feedback(secret_code, guess)
+        print("Feedback:", ''.join(feedback))
 
-        if black == 4:
-            print(f"Congratulations! You guessed the code: {''.join(secret_Code)}")
+        if feedback == ['B'] * 4:
+            print(f"Congratulations! You guessed the code: {''.join(secret_code)}")
             return
 
-    print(f"Sorry, you've used all attempts. The correct code was: {''.join(secret_Code)}")
+    print(f"Sorry, you've used all attempts. The correct code was: {''.join(secret_code)}")
+
 
 if __name__ == "__main__":
     again = 'Y'
-    while again == 'Y' :
-        play_Mastermind()
-        again  = input (f"Play again (Y/N) ?").upper()
-
+    while again == 'Y':
+        play_mastermind()
+        again = input("Play again (Y/N) ?").upper()
